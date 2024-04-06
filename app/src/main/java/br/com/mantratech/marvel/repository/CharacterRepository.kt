@@ -16,6 +16,6 @@ class CharacterRepository(context: Context) : BaseRepository(context) {
         }
 
         val generator = RequestHelper.createParams()
-        executeCall(remote.getCharacters(generator.timeStamp, generator.publicKey, generator.hash), listener)
+        executeCall(remote.getCharacters(generator.timeStamp!!, generator.publicKey, generator.hash!!), listener)
     }
 }

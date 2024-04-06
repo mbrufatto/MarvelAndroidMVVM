@@ -13,13 +13,13 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val characterRepository = CharacterRepository(application.applicationContext)
 
-    private val _characters = MutableLiveData<List<CharacterModel>?>()
-    val characters: LiveData<List<CharacterModel>?> = _characters
+    private val _characters = MutableLiveData<List<CharacterModel>>()
+    val characters: LiveData<List<CharacterModel>> = _characters
 
     fun getCharacters() {
         val listener = object : APIListener<CharacterDataModel> {
             override fun onSuccess(result: CharacterDataModel) {
-                _characters.value = result.data.results
+                _characters.value = result.data.results!!
             }
 
             override fun onFailure(message: String) {

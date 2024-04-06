@@ -1,23 +1,29 @@
-package br.com.mantratech.marvel
+package br.com.mantratech.marvel.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import br.com.mantratech.marvel.databinding.ActivityMainBinding
+import br.com.mantratech.marvel.view.adapter.CharactersAdapter
 import br.com.mantratech.marvel.viewmodel.CharacterViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: CharacterViewModel
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
+    private val adapter = CharactersAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(CharacterViewModel::class.java)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this).get(CharacterViewModel::class.java)
+        binding.characters.layoutManager = GridLayoutManager(applicationContext, 2)
+        binding.characters.adapter = adapter
 
         viewModel.getCharacters()
 
@@ -26,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observe() {
         viewModel.characters.observe(this) {
-            println(it?.get(0)?.name)
+            adapter.updateCharacters(it)
         }
     }
 }

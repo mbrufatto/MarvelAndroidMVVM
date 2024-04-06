@@ -9,10 +9,10 @@ interface CharacterService {
 
     @GET("characters")
     fun getCharacters(
-        @Query("ts") timestamp: Long?,
-        @Query("apikey") apiKey: String?,
-        @Query("hash") hash: String?,
-        @Query("limit") limit: Int = 1,
+        @Query("ts") timestamp: Long,
+        @Query("apikey") apiKey: String,
+        @Query("hash") hash: String,
+        @Query("limit") limit: Int = 10,
         @Query("offset") offset: Int = 0
     ) : Call<CharacterDataModel>
 }
