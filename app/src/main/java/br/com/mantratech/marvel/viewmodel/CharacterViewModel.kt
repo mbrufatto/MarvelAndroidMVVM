@@ -26,7 +26,6 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
                 println(message)
             }
         }
-
         characterRepository.getCharacters(listener)
     }
 }
