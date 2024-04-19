@@ -17,12 +17,13 @@ import java.net.URL
 class CharacterRepository(context: Context) : BaseRepository(context) {
     private val remote = RetrofitClient.getService(CharacterService::class.java)
 
-    fun getCharacters(listener: APIListener<CharacterDataModel>) {
+    fun getCharacters(listener: APIListener<CharacterDataModel>, offset: Int, limit: Int) {
         if(!isConnectionAvailable()) {
             listener.onFailure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
         }
 
         val generator = RequestHelper.createParams()
-        executeCall(remote.getCharacters(generator.timeStamp!!, generator.publicKey, generator.hash!!), listener)
+        executeCall(remote.getCharacters(generator.timeStamp!!, generator.publicKey, generator.hash!!,
+            offset = offset, limit = limit), listener)
     }
 }

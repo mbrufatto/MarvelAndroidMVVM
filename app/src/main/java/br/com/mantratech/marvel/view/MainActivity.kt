@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import br.com.mantratech.marvel.databinding.ActivityMainBinding
 import br.com.mantratech.marvel.view.adapter.CharactersAdapter
 import br.com.mantratech.marvel.viewmodel.CharacterViewModel
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding.characters.layoutManager = GridLayoutManager(applicationContext, 2)
         binding.characters.adapter = adapter
 
+        viewModel.setRecycleView(binding.characters)
         viewModel.getCharacters()
 
         observe()
@@ -32,7 +35,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun observe() {
         viewModel.characters.observe(this) {
-            adapter.updateCharacters(it)
+            if (it != null) {
+                adapter.updateCharacters(it)
+            }
         }
     }
 }

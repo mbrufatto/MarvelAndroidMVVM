@@ -12,7 +12,7 @@ interface CharacterService {
         @Query("ts") timestamp: Long,
         @Query("apikey") apiKey: String,
         @Query("hash") hash: String,
-        @Query("limit") limit: Int = 10,
+        @Query("limit") limit: Int = 20,
         @Query("offset") offset: Int = 0
     ) : Call<CharacterDataModel>
 }
